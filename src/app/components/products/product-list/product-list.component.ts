@@ -17,10 +17,11 @@ import { element } from 'protractor';
 export class ProductListComponent implements OnInit {
 
   productList: Product[];
+  isOn: false;
 
   constructor(
-    private productService: ProductService,
-    private toastr: ToastrService
+    public productService: ProductService,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit() {

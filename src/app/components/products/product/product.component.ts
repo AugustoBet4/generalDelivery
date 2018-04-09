@@ -16,8 +16,8 @@ import { Product } from '../../../models/product';
 export class ProductComponent implements OnInit {
 
   constructor(
-    private productService: ProductService,
-    private toastr: ToastrService
+    public productService: ProductService,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit() {
