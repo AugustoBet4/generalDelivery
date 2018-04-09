@@ -1,19 +1,24 @@
 <div class="card">
   <div class="card-body">
     <h6 class="text-center">Lista de Productos</h6>
-    <table class="table table-sm table-hover">
+    <table class="table table-responsive table-sm table-hover">
       <thead>
         <th>Nombre</th>
         <th>Categoria</th>
+        <th>Localización</th>
+        <th colspan="2">Opciones</th>
       </thead>
       <tbody>
         <tr *ngFor="let product of productList">
-          <td>{{ product.name}}</td>
-          <td>{{ product.category}}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.location }}</td>
           <td>
-            <a class="btn btn-secondary text-white" (click)="onEdit(product)">
+            <a class="btn btn-secondary text-white" (click)="[onEdit(product), isOn = true]">
               <i class="far fa-edit"></i>
             </a>
+          </td>
+          <td>
             <a class="btn btn-danger text-white" (click)="onDelete(product.$key)">
               <i class="fas fa-trash-alt"></i>
             </a>
@@ -21,5 +26,60 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+<div class="card" *ngIf="isOn">
+  <div class="card-body text-center">
+    <form #productForm="ngForm" (ngSubmit)='onSubmit(productForm)'>
+      <input type="hidden" name="$key" #$key="ngModel"[(ngModel)]="productService.selectedProduct.$key">
+      <div class="form-group">
+        <input type="text"
+          class="form-control"
+          name="name"
+          #name="ngModel"
+          [(ngModel)]="productService.selectedProduct.name"
+          placeholder="Agrega nombre del producto"
+        >
+      </div>
+
+      <div class="form-group">
+        <input type="text"
+          class="form-control"
+          name="category"
+          #category="ngModel"
+          [(ngModel)]="productService.selectedProduct.category"
+          placeholder="Agrega categoria del producto"
+        >
+      </div>
+
+      <div class="form-group">
+        <input type="text"
+          class="form-control"
+          name="location"
+          #location="ngModel"
+          [(ngModel)]="productService.selectedProduct.location"
+          placeholder="Agrega localización del producto"
+        >
+      </div>
+
+      <div class="form-group">
+          <input type="text"
+            class="form-control"
+            name="price"
+            #price="ngModel"
+            [(ngModel)]="productService.selectedProduct.price"
+            placeholder="Agrega precio del producto"
+          >
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-plus-circle"></i> Agregar
+          </button>
+          <button class="btn btn-secondary" type="reset" (click)="[resetForm(productForm), isOn = false]">
+            <i class="fas fa-sync-alt"></i> Descartar
+          </button>
+        </div>
+    </form>
   </div>
 </div>

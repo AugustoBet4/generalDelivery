@@ -1,12 +1,11 @@
-<div class="card mt-5">
-  <div class="card-body">
+<div class="card">
+  <div class="card-body text-center">
     <form #productForm="ngForm" (ngSubmit)='onSubmit(productForm)'>
       <input type="hidden" name="$key" #$key="ngModel"[(ngModel)]="productService.selectedProduct.$key">
       <div class="form-group">
         <input type="text"
           class="form-control"
           name="name"
-          #name="ngModel"
           [(ngModel)]="productService.selectedProduct.name"
           placeholder="Agrega nombre del producto"
         >
@@ -16,7 +15,6 @@
         <input type="text"
           class="form-control"
           name="category"
-          #category="ngModel"
           [(ngModel)]="productService.selectedProduct.category"
           placeholder="Agrega categoria del producto"
         >
@@ -26,7 +24,6 @@
         <input type="text"
           class="form-control"
           name="location"
-          #location="ngModel"
           [(ngModel)]="productService.selectedProduct.location"
           placeholder="Agrega localización del producto"
         >
@@ -36,7 +33,6 @@
           <input type="text"
             class="form-control"
             name="price"
-            #price="ngModel"
             [(ngModel)]="productService.selectedProduct.price"
             placeholder="Agrega precio del producto"
           >
@@ -44,7 +40,7 @@
 
         <div class="form-group">
           <button class="btn btn-primary" type="submit">
-            <i class="fas fa-plus-circle"></i> Agregar Producto
+            <i class="fas fa-plus-circle"></i> Agregar
           </button>
           <button class="btn btn-secondary" type="reset" (click)="resetForm(productForm)">
             <i class="fas fa-sync-alt"></i> Borrar campos
