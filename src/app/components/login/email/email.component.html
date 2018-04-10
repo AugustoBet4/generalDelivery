@@ -1,0 +1,26 @@
+ <div class="card m-1"> 
+  <div class="card-body text center">
+    <a routerLink="/" id="goback">Volver atras</a>
+    <h2>Login</h2>
+
+    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <div class="form-group">
+        <input type="text"
+        placeholder="Email.."
+        (ngModel)="email"
+        name="email"
+        class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="password"
+        placeholder="Password"
+        (ngModel)="password" 
+        name="password"
+        class="form-control">
+      </div>
+      <button type="submit" [disabled]="!formData.valid" class="btn btn-success">
+      <i class="fas fa-check"></i> Log in</button>
+      <a routerLink="/signup" class="alc">No tienes una cuenta?</a>
+    </form>
+  </div>
+</div>
