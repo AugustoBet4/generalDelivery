@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // Service
@@ -23,6 +23,9 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.productService.getProducts();
     this.resetForm();
+  }
+  ngOnDestroy() {
+    
   }
 
   onSubmit(productForm: NgForm) {

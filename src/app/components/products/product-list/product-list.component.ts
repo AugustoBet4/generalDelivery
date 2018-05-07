@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 // Service
@@ -8,6 +8,7 @@ import { ToastrService } from "ngx-toastr";
 // Product Class
 import { Product } from '../../../models/product';
 import { element } from 'protractor';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-product-list',
@@ -18,6 +19,7 @@ export class ProductListComponent implements OnInit {
 
   productList: Product[];
   isOn: false;
+  subscription: any;
 
   constructor(
     public productService: ProductService,
@@ -25,7 +27,7 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.productService.getProducts()
+    this.subscription = this.productService.getProducts()
     .snapshotChanges()
     .subscribe(item => {
       this.productList = [];
@@ -35,6 +37,10 @@ export class ProductListComponent implements OnInit {
         this.productList.push(x as Product);
       });
     });
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.productService.selectedProduct = new Product();
   }
 
   onEdit(product: Product) {
@@ -49,14 +55,9 @@ export class ProductListComponent implements OnInit {
   }
 
   onSubmit(productForm: NgForm) {
-    if (productForm.value.$key == null){
-      this.productService.insertProducts(productForm.value);
-      this.toastr.success('Operación Exitosa','Producto Agregado');
-    }
-    else{
-      this.productService.updateProduct(productForm.value);
-      this.toastr.success('Operación Exitosa','Producto Modificado');
-    }
+    this.productService.updateProduct(productForm.value);
+    this.toastr.success('Operación Exitosa','Producto Modificado');
+    this.isOn = false;
     this.resetForm(productForm);
   }
 
