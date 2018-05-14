@@ -7,6 +7,8 @@ import * as firebase from 'firebase/app';
 import { Observable } from '@firebase/util';
 import { FirebaseAuth } from '@firebase/auth-types';
 
+import { ToastrService } from "ngx-toastr";
+
 
 @Component({
   selector: 'app-email',
@@ -19,7 +21,9 @@ export class EmailComponent implements OnInit {
   error: any;
   user: Observable<firebase.User>;
 
-  constructor(public af: AngularFireAuth, private router: Router) { 
+  constructor(public af: AngularFireAuth,
+    private router: Router,
+    public toastr: ToastrService) { 
     this.af.authState.subscribe( auth => {
       if(auth) {
         this.router.navigateByUrl('/home');
@@ -29,17 +33,14 @@ export class EmailComponent implements OnInit {
 
   onSubmit(formData){
     if (formData) {
-      console.log(formData.value);
-      this.af.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
+      this.af.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (success) => {
-          console.log(success); 
-          this.router.navigate(['/login']);
-          var user = this.af.auth.currentUser;
-          user.sendEmailVerification();
+          this.toastr.success('Ingreso Exitoso');
+          this.router.navigate(['/home']);
         }).catch(
-          (err) => {
-            console.log(err);
-            this.error = err;
+          (error) => {
+            this.toastr.error('Ingreso Fallido, Datos Incorrectos');
+            this.error = error;
           })
     }
   }

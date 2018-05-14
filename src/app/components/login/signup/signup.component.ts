@@ -25,10 +25,12 @@ export class SignupComponent implements OnInit {
 
   onSubmit(formData){
     if (formData) {
-      console.log(formData.value);
       this.af.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (success) => {
           console.log(success);
+          console.log('SignUp: '+this.af.auth.currentUser.uid);
+          var user = this.af.auth.currentUser;
+          user.sendEmailVerification();
           this.router.navigate(['/login'])
         }).catch(
           (err) => {

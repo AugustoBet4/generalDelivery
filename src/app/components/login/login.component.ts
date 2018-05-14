@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
+import { ToastrService } from "ngx-toastr";
+
 
 
 @Component({
@@ -20,7 +22,9 @@ export class LoginComponent implements OnInit {
   msgVal: string = '';
 
   error: any;
-  constructor (public af: AngularFireAuth, private router: Router) {
+  constructor (public af: AngularFireAuth,
+    private router: Router,
+    public toastr: ToastrService) {
 
     this.af.authState.subscribe(auth => {
       if(auth){
@@ -34,21 +38,25 @@ export class LoginComponent implements OnInit {
     this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
       (success) => {
         this.router.navigate(['/home']);
+        this.toastr.success('Ingreso Exitoso');
       }).catch(
         (err) => {
           this.error = err;
         })
   }
+  
   loginGoogle() {
     this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       (success) => {
         this.router.navigate(['/home']);
+        this.toastr.success('Ingreso Exitoso');
       }).catch(
-        (err) => {
-          this.error = err;
+        (error) => {
+          this.toastr.error('Ingreso Fallido, Datos Incorrectos');
+          this.error = error;
         })
   }
-
+  
   ngOnInit() {
   }
 
