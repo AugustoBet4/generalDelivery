@@ -20,11 +20,13 @@ export class LoginComponent implements OnInit {
   user: Observable<firebase.User>;
   items: AngularFireList<any[]>;
   msgVal: string = '';
+  users: AngularFireList<any>;
 
   error: any;
   constructor (public af: AngularFireAuth,
     private router: Router,
-    public toastr: ToastrService) {
+    public toastr: ToastrService,
+    private firebase: AngularFireDatabase) {
 
     this.af.authState.subscribe(auth => {
       if(auth){
@@ -37,22 +39,36 @@ export class LoginComponent implements OnInit {
   loginFB() {
     this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
       (success) => {
+        // Creacion del usuario en firebase en users para el manejo de roles
+        const ref = this.firebase.object('users/' + this.af.auth.currentUser.uid);
+        ref.update({
+            roles: 'customer',
+            mail: this.af.auth.currentUser.email
+          });
         this.router.navigate(['/home']);
         this.toastr.success('Ingreso Exitoso');
       }).catch(
-        (err) => {
-          this.error = err;
+        (error) => {
+          console.log(error);
+          this.toastr.error('Ingreso Fallido');
+          this.error = error;
         })
   }
   
   loginGoogle() {
     this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       (success) => {
+        // Creacion del usuario en firebase en users para el manejo de roles
+        const ref = this.firebase.object('users/' + this.af.auth.currentUser.uid);
+        ref.update({
+            roles: 'customer',
+            mail: this.af.auth.currentUser.email
+          });
         this.router.navigate(['/home']);
         this.toastr.success('Ingreso Exitoso');
       }).catch(
         (error) => {
-          this.toastr.error('Ingreso Fallido, Datos Incorrectos');
+          this.toastr.error('Ingreso Fallido');
           this.error = error;
         })
   }

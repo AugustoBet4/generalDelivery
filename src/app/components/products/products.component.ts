@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public af: AngularFireAuth, private router: Router) { }
 
   ngOnInit() {
   }
-
+  
+  logout() {
+    this.af.auth.signOut();
+    this.router.navigate(['']);
+  }
 }

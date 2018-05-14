@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 
 // Service
 import { ProductService } from "../../../services/product.service";
@@ -17,7 +19,9 @@ export class ProductComponent implements OnInit {
 
   constructor(
     public productService: ProductService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    public af: AngularFireAuth,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,6 +49,10 @@ export class ProductComponent implements OnInit {
       productForm.reset();
       this.productService.selectedProduct = new Product();
     }
+  }
+  logout() {
+    this.af.auth.signOut();
+    this.router.navigate(['']);
   }
 
 }

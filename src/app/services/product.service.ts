@@ -15,7 +15,7 @@ export class ProductService {
     return this.productList = this.firebase.list('products');
   }
 
-  insertProducts(product:Product ) {
+  insertProducts(product:Product) {
     this.productList.push({
       name: product.name,
       category: product.category,

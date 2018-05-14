@@ -1,3 +1,26 @@
+<nav  class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a href="/" class="navbar-brand">General Delivery</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/productos" routerLinkActive="active">Agregar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/modificar"  routerLinkActive="active">Modificar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"(click)="logout()">Cerrar Sesión</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<img style="display: block; margin: auto" width="300" alt="Logo" src="../assets/logo.png">
+
+
 <div class="card">
   <div class="card-body">
     <h6 class="text-center">Lista de Productos</h6>

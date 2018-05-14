@@ -12,10 +12,13 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
+  users: AngularFireList<any>;
   state: string = '';
   error: any;
 
-  constructor(public af: AngularFireAuth, private router: Router) { 
+  constructor(public af: AngularFireAuth, private router: Router, 
+    private firebase: AngularFireDatabase) {
+
     this.af.authState.subscribe( auth => {
       if(auth) {
         this.router.navigateByUrl('/home');
@@ -25,10 +28,14 @@ export class SignupComponent implements OnInit {
 
   onSubmit(formData){
     if (formData) {
+      // CREACION DE CUENTA CON EMAIL
       this.af.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (success) => {
-          console.log(success);
-          console.log('SignUp: '+this.af.auth.currentUser.uid);
+          const ref = this.firebase.object('users/' + this.af.auth.currentUser.uid);
+          ref.update({
+            roles: 'client',
+            mail: formData.value.email
+          });
           var user = this.af.auth.currentUser;
           user.sendEmailVerification();
           this.router.navigate(['/login'])
