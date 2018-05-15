@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-
+  email: any;
+  password: any;
+  
   users: AngularFireList<any>;
   state: string = '';
   error: any;

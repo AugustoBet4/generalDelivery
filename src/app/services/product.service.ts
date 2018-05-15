@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Product } from '../models/product';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class ProductService {
@@ -9,10 +10,11 @@ export class ProductService {
   productList: AngularFireList<any>;
   selectedProduct: Product = new Product();
 
-  constructor(private firebase: AngularFireDatabase) { }
+  constructor(private firebase: AngularFireDatabase,
+    private af: AngularFireAuth) { }
 
   getProducts() {
-    return this.productList = this.firebase.list('products');
+    return this.productList = this.firebase.list('users/' + this.af.auth.currentUser.uid + '/products/');
   }
 
   insertProducts(product:Product) {

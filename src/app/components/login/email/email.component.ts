@@ -16,6 +16,8 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
+  email: any;
+  password: any;
 
   state: string = '';
   error: any;
