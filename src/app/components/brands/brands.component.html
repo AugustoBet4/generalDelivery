@@ -16,8 +16,8 @@
   </div>
 </nav>
 <div class="form-group">
-  <ul *ngFor="let us of user">
-    <li *ngIf="us.roles == 'client'">{{ us.roles }}</li>
-    <li *ngIf="us.roles == 'client'">{{ us.mail }}</li>
+  <ul class="list-group" *ngFor="let us of user">
+    <li class="list-group-item" *ngIf="us.roles == 'client'">{{ us.roles }}</li>
+    <li class="list-group-item" *ngIf="us.roles == 'client'">{{ us.mail }}</li>
   </ul>
 </div>

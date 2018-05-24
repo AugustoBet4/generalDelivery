@@ -3,5 +3,4 @@ export class Users {
     pinches: string;
     roles: string;
     mail: string;
-    //asdad
 }
