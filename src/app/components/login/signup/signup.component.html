@@ -10,18 +10,36 @@
     <h2>Crear cuenta!</h2>
     <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
       <div class="form-group">
-        <input type="text"
+        <input type="email"
         placeholder="Email.."
         (ngModel)="email"
         name="email"
-        class="form-control">
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        class="form-control"
+        #email="ngModel"
+        required>
+        <small *ngIf="email.hasError('required') && email.touched"  class="text-danger">
+          Ingrese un email.
+        </small>
+        <small *ngIf="email.errors?.pattern" class="text-danger">
+          Ingrese un correo valido.
+        </small>
       </div>
       <div class="form-group">
         <input type="password"
         placeholder="Password"
         (ngModel)="password"
         name="password"
-        class="form-control">
+        minlength="7"
+        class="form-control"
+        #pass="ngModel"
+        required>
+        <small *ngIf="pass.hasError('required') && pass.touched"  class="text-danger">
+          Ingrese una contraseña.
+        </small>
+        <small *ngIf="pass.hasError('minlength')" class="text-danger">
+          Ingrese una contraseña con un minimo de 7 caracteres.
+        </small>
       </div>
       <div class="form-group">
         <button type="submit"
