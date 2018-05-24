@@ -37,7 +37,7 @@ export class BrandsComponent implements OnInit {
       this.user = [];
       item.forEach(element => {
         let x = element.payload.toJSON();
-        console.log(x);
+        x["$key"] = element.key;
         this.user.push(x as Users);
       });
     });

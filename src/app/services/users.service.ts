@@ -13,6 +13,6 @@ export class UsersService {
     private af: AngularFireAuth) { }
 
   getUsers(){
-    return this.user = this.firebase.list('users/' + this.af.auth.currentUser.uid);
+    return this.user = this.firebase.list('users/');
   }
 }
