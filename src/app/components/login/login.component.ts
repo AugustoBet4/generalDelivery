@@ -27,13 +27,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public toastr: ToastrService,
     private firebase: AngularFireDatabase) {
-
-    this.af.authState.subscribe(auth => {
-      if(auth){
-        this.router.navigateByUrl('/home');
-      }
-    });
-
   }
 
   loginFB() {
@@ -45,7 +38,7 @@ export class LoginComponent implements OnInit {
             roles: 'customer',
             mail: this.af.auth.currentUser.email
           });
-        this.router.navigate(['/home']);
+        this.router.navigate(['/brands']);
         this.toastr.success('Ingreso Exitoso');
       }).catch(
         (error) => {
@@ -64,7 +57,7 @@ export class LoginComponent implements OnInit {
             roles: 'customer',
             mail: this.af.auth.currentUser.email
           });
-        this.router.navigate(['/home']);
+        this.router.navigate(['/brands']);
         this.toastr.success('Ingreso Exitoso');
       }).catch(
         (error) => {

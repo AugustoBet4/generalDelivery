@@ -21,9 +21,11 @@ import { ProductComponent } from './components/products/product/product.componen
 import { LoginComponent } from './components/login/login.component';
 import { EmailComponent } from './components/login/email/email.component';
 import { SignupComponent } from './components/login/signup/signup.component';
+import { BrandsComponent } from './components/brands/brands.component';
 
 //Servicios
 import { ProductService } from './services/product.service';
+import { UsersService } from './services/users.service';
 
 // Rutas
 const appRoutes: Routes = [
@@ -32,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'home', component: ProductsComponent },
   { path: 'login-email', component: EmailComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'brands', component: BrandsComponent },
   { path: '', component: LoginComponent }
 ]
 
@@ -44,7 +47,8 @@ const appRoutes: Routes = [
     ProductComponent,
     LoginComponent,
     EmailComponent,
-    SignupComponent
+    SignupComponent,
+    BrandsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes, { enableTracing: false})
   ],
-  providers: [ProductService],
+  providers: [ProductService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

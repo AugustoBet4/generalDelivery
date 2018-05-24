@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
+import { Subscription } from 'rxjs/Subscription';
 
 // Service
 import { ProductService } from '../../../services/product.service';
@@ -9,8 +11,6 @@ import { ToastrService } from "ngx-toastr";
 
 // Product Class
 import { Product } from '../../../models/product';
-import { element } from 'protractor';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-product-list',

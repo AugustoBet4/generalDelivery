@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 
+
+import { element } from 'protractor';
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -10,7 +13,12 @@ import { Router } from '@angular/router';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(public af: AngularFireAuth, private router: Router) { }
+  subscription: any;
+
+  constructor(
+    public af: AngularFireAuth,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
