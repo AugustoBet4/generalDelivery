@@ -21,7 +21,7 @@
 <img style="display: block; margin: auto" width="300" alt="Logo" src="../assets/logo.png">
 
 
-<div class="card">
+<div class="card" *ngIf="empty()">
   <div class="card-body">
     <h6 class="text-center">Lista de Productos</h6>
     <table class="table table-responsive table-sm table-hover">
@@ -50,6 +50,9 @@
       </tbody>
     </table>
   </div>
+</div>
+<div class="alert alert-warning m-2" *ngIf="!empty()">
+    <h5 class="text-center text-warning">Ingrese algun producto.</h5>
 </div>
 <div class="card" *ngIf="isOn">
   <div class="card-body text-center">

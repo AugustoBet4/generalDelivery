@@ -1,6 +1,6 @@
 export class Users {
     $key: string;
-    pinches: string;
+    name: string;
     roles: string;
     mail: string;
 }

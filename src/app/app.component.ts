@@ -14,6 +14,8 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.af.auth.signOut();
+    this.router.navigate(['']);
   }
 
   logout() {

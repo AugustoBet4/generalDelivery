@@ -25,8 +25,14 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.productService.getProducts();
-    this.resetForm();
+    if (this.af.auth.currentUser !== null){
+      this.productService.getProducts();
+      this.resetForm();
+    }
+    else{
+      this.af.auth.signOut();
+      this.router.navigate(['']);
+    }
   }
   ngOnDestroy() {
     

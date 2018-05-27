@@ -8,7 +8,7 @@
     <a routerLink="/" id="goback">Volver Atras</a>
   
     <h2>Crear cuenta!</h2>
-    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)" autocomplete="off">
       <div class="form-group">
         <input type="email"
         placeholder="Email.."

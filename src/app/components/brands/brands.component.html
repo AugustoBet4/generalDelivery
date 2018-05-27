@@ -15,9 +15,10 @@
     </ul>
   </div>
 </nav>
-<div class="form-group">
-  <ul class="list-group" *ngFor="let us of user">
-    <li class="list-group-item" *ngIf="us.roles == 'client'">{{ us.roles }}</li>
-    <li class="list-group-item" *ngIf="us.roles == 'client'">{{ us.mail }}</li>
+<div class="form-group" *ngFor="let us of user">
+  <ul class="list-group" *ngIf="us.roles == 'client'">
+    <li class="list-group-item">{{ us.roles }}</li>
+    <li class="list-group-item">{{ us.mail }}</li>
+    <li class="list-group-item">{{ us.name ? us.name : 'No tiene nombre :('  }}</li>
   </ul>
 </div>

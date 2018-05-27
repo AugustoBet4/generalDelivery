@@ -11,6 +11,7 @@ import { ToastrService } from "ngx-toastr";
 
 // Product Class
 import { Product } from '../../../models/product';
+import { isEmpty } from '@firebase/util';
 
 @Component({
   selector: 'app-product-list',
@@ -21,7 +22,7 @@ export class ProductListComponent implements OnInit {
 
   productList: Product[];
   isOn: false;
-  subscription: any;
+  subscription: any = '';
 
   constructor(
     public productService: ProductService,
@@ -31,20 +32,24 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscription = this.productService.getProducts()
-    .snapshotChanges()
-    .subscribe(item => {
+    if (this.af.auth.currentUser !== null){
+      this.subscription = this.productService.getProducts()
+      .snapshotChanges()
+      .subscribe(item => {
       this.productList = [];
       item.forEach(element => {
         let x = element.payload.toJSON();
         x["$key"] = element.key;
         this.productList.push(x as Product);
-        console.log(this.productList);
       });
     });
+    }
+    else{
+      this.af.auth.signOut();
+      this.router.navigate(['']);
+    }
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
     this.productService.selectedProduct = new Product();
   }
 
@@ -73,8 +78,16 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  empty(){
+    if(!isEmpty(this.productList))
+      return true;
+    else
+      return false;
+  }
+
   logout() {
+    this.subscription.unsubscribe();
     this.af.auth.signOut();
-    this.router.navigate(['']);
+    this.router.navigate(['/']);
   }
 }

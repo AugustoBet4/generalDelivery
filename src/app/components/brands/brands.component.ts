@@ -31,16 +31,23 @@ export class BrandsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.subscription = this.userService.getUsers()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.user = [];
-      item.forEach(element => {
-        let x = element.payload.toJSON();
-        x["$key"] = element.key;
-        this.user.push(x as Users);
+    if (this.af.auth.currentUser !== null){
+      this.subscription = this.userService.getUsers()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.user = [];
+        item.forEach(element => {
+          let x = element.payload.toJSON();
+          x["$key"] = element.key;
+          this.user.push(x as Users);
+          console.log(this.user);
+        });
       });
-    });
+    }
+    else{
+      this.af.auth.signOut();
+      this.router.navigate(['']);
+    }
   }
 
   logout() {
